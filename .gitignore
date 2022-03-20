@@ -8,4 +8,5 @@
 /vendor/
 .env
 .docker2/tmp
+.idea
 ###< symfony/framework-bundle ###

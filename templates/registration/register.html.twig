@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+    <link rel="stylesheet" href="{{ asset('assets/css/base-style.css') }}">
+    <div class="page-header header-filter img-login-gradient-main">
+        <div class="container d-flex justify-content-center">
+            <div class="row">
+                <div class="pt-5 ml-auto mr-auto">
+                    <div class="card card-login">
+                        <div class="card-header card-header-primary text-center">
+                            <h4 class="card-title">{{ 'Registration'|trans }}</h4>
+                        </div>
+                        {{ form_start(registrationForm) }}
+                        {% if not registrationForm.vars.valid %}
+                            <div class="alert alert-danger w-100"
+                                 role="alert">{{ form_errors(registrationForm.username) }}</div>
+                        {% endif %}
+                        <div class="card-body">
+                            <div class="input-group">
+                                {{ form_widget(registrationForm.username,{'attr':{'class':'form-control','placeholder':'Username'|trans }}) }}
+                            </div>
+                            <div class="input-group">
+                                {{ form_widget(registrationForm.plainPassword,{'attr':{'class':'form-control','placeholder':'Password'|trans}}) }}
+                            </div>
+                            <div class="input-group">
+                                {{ form_widget(registrationForm.roles,{'attr':{'class':'selectpicker'}}) }}
+                            </div>
+                        </div>
+                        <div class="footer text-center">
+                            <input type="submit" href="#pablo" class="btn btn-primary btn-wd btn-lg"
+                                   value="{{ 'Join'|trans }}">
+                            <br/>
+                            <div class="pt-3">
+                                {% if targetBack is defined and  targetBack != null %}
+                                    <a href="{{ path('app_login', {'targetBack': targetBack }) }}"
+                                       class="btn btn-primary btn-link btn-wd">{{ 'Login'|trans }}</a>
+                                {% else %}
+                                    <a href="{{ path('app_login') }}"
+                                       class="btn btn-primary btn-link btn-wd text-white">{{ 'Login'|trans }}</a>
+                                {% endif %}
+                            </div>
+                            <br/>
+                            <br/>
+                        </div>
+                        {{ form_end(registrationForm) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
