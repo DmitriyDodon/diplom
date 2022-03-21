@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use App\Form\RegistrationFormType;
 use App\Security\LoginFormAuthenticator;
 use Exception;
@@ -29,8 +30,8 @@ class RegistrationController extends AbstractController
     }
 
     /**
-     *    *
      * @Route("/register", name="app_register", options={"sitemap" = { "section" = "pages" }})
+     * @IsGranted("ROLE_MANAGER")
      * @param Request $request
      * @param UserPasswordEncoderInterface $passwordEncoder
      * @param GuardAuthenticatorHandler $guardHandler

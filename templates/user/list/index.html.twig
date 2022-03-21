@@ -1,0 +1,6 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {% for user in users %}
+        {{ dump(user) }}
+    {% endfor %}
+{% endblock %}

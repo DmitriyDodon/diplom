@@ -49,7 +49,7 @@ class RegistrationFormType extends AbstractType
                 ],
             ])
             ->add('roles', ChoiceType::class, [
-                'choices' => ["MANAGER", "SALESMAN", "ADMIN"],
+                'choices' => ["ROLE_MANAGER", "ROLE_SALESMAN", "ROLE_ADMIN", "ROLE_USER"],
                 'choice_label' => function(string $role) {
                     return $role;
                 },

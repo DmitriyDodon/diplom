@@ -1,13 +1,33 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        <link href="{{ asset('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link rel="icon"
+          href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+    {% block bootstrapCssBlock %}
+        <link href="{{ asset("/bootstrap/css/bootstrap.min.css") }}" rel="stylesheet">
+    {% endblock %}
+    {% block additionalCss %}
+    {% endblock %}
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            {{ include('base/navbar/navbar.html.twig') }}
+        </header>
+        <div class="content">
+            <div class="container">
+                {{ include('base/alert/alerts.html.twig') }}
+                {% block body %}
+                {% endblock %}
+            </div>
+        </div>
+        <footer class="footer">
+            {{ include('base/footer/footer.html.twig') }}
+        </footer>
+    </div>
+</body>
+    <script src="{{ asset('/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('/bootstrap/js/bootstrap.min.js"') }}"></script>
 </html>
