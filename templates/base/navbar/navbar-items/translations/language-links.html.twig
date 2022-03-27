@@ -1,0 +1,18 @@
+<li class="nav-item">
+    <a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale':'en'})) }}"
+       hreflang="en" class="dropdown-item">
+        English
+    </a>
+</li>
+<li class="nav-item">
+    <a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale':'ru'})) }}"
+       hreflang="ru" class="dropdown-item">
+        Русский
+    </a>
+</li>
+<li class="nav-item">
+    <a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale':'uk'})) }}"
+       hreflang="uk" class="dropdown-item">
+        Українська
+    </a>
+</li>

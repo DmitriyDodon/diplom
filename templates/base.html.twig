@@ -11,23 +11,27 @@
     {% block additionalCss %}
     {% endblock %}
 </head>
+
 <body>
-    <div class="wrapper">
-        <header>
-            {{ include('base/navbar/navbar.html.twig') }}
-        </header>
-        <div class="content">
-            <div class="container">
-                {{ include('base/alert/alerts.html.twig') }}
-                {% block body %}
-                {% endblock %}
-            </div>
+<div class="wrapper">
+{#    {{ include('base/load/load.html.twig') }}#}
+    <header>
+        {{ include('base/navbar/navbar.html.twig') }}
+    </header>
+    <div class="content">
+        <div class="container">
+            {{ include('base/alert/alerts.html.twig') }}
+            {% block body %}
+            {% endblock %}
         </div>
+    </div>
+    {% if not is_web_view() %}
         <footer class="footer">
             {{ include('base/footer/footer.html.twig') }}
         </footer>
-    </div>
+    {% endif %}
+</div>
 </body>
-    <script src="{{ asset('/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('/bootstrap/js/bootstrap.min.js"') }}"></script>
+<script src="{{ asset('/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('/bootstrap/js/bootstrap.min.js"') }}"></script>
 </html>

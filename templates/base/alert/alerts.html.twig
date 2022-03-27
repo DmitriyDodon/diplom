@@ -2,17 +2,17 @@
     <div class="container col-10 pt-2">
         {% for message in app.flashes('info') %}
             <div class="alert alert-info" role="alert">
-                {{ message }}
+                {{ message|trans }}
             </div>
         {% endfor %}
         {% for message in app.flashes('error') %}
             <div class="alert alert-danger" role="alert">
-                {{ message }}
+                {{ message|trans }}
             </div>
         {% endfor %}
         {% for message in app.flashes('warning') %}
             <div class="alert alert-warning" role="alert">
-                {{ message }}
+                {{ message|trans }}
             </div>
         {% endfor %}
     </div>
