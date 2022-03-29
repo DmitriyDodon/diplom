@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use DateTimeInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -16,6 +18,12 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+    public function __construct()
+    {
+        $this->products = new ArrayCollection();
+    }
+
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -78,6 +86,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string", length=12, unique=true)
      */
     private $uniqueKey;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Product::class, mappedBy="user")
+     */
+    private $products;
 
     public function getId(): ?int
     {
@@ -289,6 +302,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLastLogin(?DateTimeInterface $lastLogin): void
     {
         $this->lastLogin = $lastLogin;
+    }
+
+    /**
+     * @return Collection|Product[]
+     */
+    public function getEntries(): Collection
+    {
+        return $this->products;
+    }
+
+    public function addEntry(Product $product): self
+    {
+        if (!$this->products->contains($product)) {
+            $this->products[] = $product;
+            $product->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEntry(Product $product): self
+    {
+        if ($this->products->removeElement($product)) {
+            // set the owning side to null (unless already changed)
+            if ($product->getUser() === $this) {
+                $product->setUser(null);
+            }
+        }
+
+        return $this;
     }
 
 
