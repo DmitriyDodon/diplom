@@ -26,7 +26,8 @@
         "symfony/translation": "5.4.*",
         "symfony/validator": "5.4.*",
         "symfony/yaml": "5.4.*",
-        "twig/extra-bundle": "^3.3"
+        "twig/extra-bundle": "^3.3",
+      "ext-mbstring": "*"
     },
     "config": {
         "allow-plugins": {

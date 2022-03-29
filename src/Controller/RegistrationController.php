@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class RegistrationController extends AbstractController
@@ -24,6 +25,10 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+//            creating unique code
+            $user->setUniqueKey(mb_strimwidth(str_shuffle(uniqid() . uniqid()), 0, 12));
+//            setting registration date and time
+            $user->setRegisteredAt(new \DateTime());
             // encode the plain password
             $user->setPassword(
             $userPasswordHasher->hashPassword(

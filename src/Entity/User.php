@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -20,12 +21,47 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      */
-    private $username;
+    private string $username;
+
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private ?string $firstName = null;
+
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private ?string $middleName = null;
+
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private ?string $lastName = null;
+
+    /**
+     * @ORM\Column(type="string", length=15, unique=true, nullable=true)
+     */
+    private ?string $mobile = null;
+
+    /**
+     * @ORM\Column(type="string", length=50, unique=true, nullable=true)
+     */
+    private ?string $email = null;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private DateTimeInterface $registeredAt;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private ?DateTimeInterface $lastLogin;
 
     /**
      * @ORM\Column(type="json")
@@ -37,6 +73,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string")
      */
     private $password;
+
+    /**
+     * @ORM\Column(type="string", length=12, unique=true)
+     */
+    private $uniqueKey;
 
     public function getId(): ?int
     {
@@ -121,4 +162,134 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getUniqueKey()
+    {
+        return $this->uniqueKey;
+    }
+
+    /**
+     * @param mixed $uniqueKey
+     */
+    public function setUniqueKey($uniqueKey): void
+    {
+        $this->uniqueKey = $uniqueKey;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getFirstName(): ?string
+    {
+        return $this->firstName;
+    }
+
+    /**
+     * @param string|null $firstName
+     */
+    public function setFirstName(?string $firstName): void
+    {
+        $this->firstName = $firstName;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getMiddleName(): ?string
+    {
+        return $this->middleName;
+    }
+
+    /**
+     * @param string|null $middleName
+     */
+    public function setMiddleName(?string $middleName): void
+    {
+        $this->middleName = $middleName;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getLastName(): ?string
+    {
+        return $this->lastName;
+    }
+
+    /**
+     * @param string|null $lastName
+     */
+    public function setLastName(?string $lastName): void
+    {
+        $this->lastName = $lastName;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getMobile(): ?string
+    {
+        return $this->mobile;
+    }
+
+    /**
+     * @param string|null $mobile
+     */
+    public function setMobile(?string $mobile): void
+    {
+        $this->mobile = $mobile;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param string|null $email
+     */
+    public function setEmail(?string $email): void
+    {
+        $this->email = $email;
+    }
+
+    /**
+     * @return DateTimeInterface
+     */
+    public function getRegisteredAt(): DateTimeInterface
+    {
+        return $this->registeredAt;
+    }
+
+    /**
+     * @param DateTimeInterface $registeredAt
+     */
+    public function setRegisteredAt(DateTimeInterface $registeredAt): void
+    {
+        $this->registeredAt = $registeredAt;
+    }
+
+    /**
+     * @return DateTimeInterface|null
+     */
+    public function getLastLogin(): ?DateTimeInterface
+    {
+        return $this->lastLogin;
+    }
+
+    /**
+     * @param DateTimeInterface|null $lastLogin
+     */
+    public function setLastLogin(?DateTimeInterface $lastLogin): void
+    {
+        $this->lastLogin = $lastLogin;
+    }
+
+
 }
