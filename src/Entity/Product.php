@@ -1,8 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use App\Repository\ProductRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -10,6 +14,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Product
 {
+    public function __construct()
+    {
+        $this->metas = new ArrayCollection();
+    }
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -96,6 +105,11 @@ class Product
      * @ORM\Column(type="text", nullable=true)
      */
     private ?string $content = null;
+
+    /**
+     * @ORM\OneToMany(targetEntity=ProductMeta::class, mappedBy="product")
+     */
+    private ArrayCollection $metas;
 
 
     public function getId(): ?int
@@ -359,5 +373,22 @@ class Product
         $this->content = $content;
     }
 
+    /**
+     * @return Collection|Product[]
+     */
+    public function getMetas(): Collection
+    {
+        return $this->metas;
+    }
+
+    public function addMeta(ProductMeta $productMeta): self
+    {
+        if (!$this->metas->contains($productMeta)) {
+            $this->metas[] = $productMeta;
+            $productMeta->setProduct($this);
+        }
+
+        return $this;
+    }
 
 }

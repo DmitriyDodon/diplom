@@ -307,12 +307,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @return Collection|Product[]
      */
-    public function getEntries(): Collection
+    public function getProducts(): Collection
     {
         return $this->products;
     }
 
-    public function addEntry(Product $product): self
+    public function addProduct(Product $product): self
     {
         if (!$this->products->contains($product)) {
             $this->products[] = $product;
@@ -322,7 +322,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function removeEntry(Product $product): self
+    public function removeProduct(Product $product): self
     {
         if ($this->products->removeElement($product)) {
             // set the owning side to null (unless already changed)
