@@ -16,6 +16,7 @@ class Product
 {
     public function __construct()
     {
+        $this->reviews = new ArrayCollection();
         $this->metas = new ArrayCollection();
     }
 
@@ -110,6 +111,16 @@ class Product
      * @ORM\OneToMany(targetEntity=ProductMeta::class, mappedBy="product")
      */
     private ArrayCollection $metas;
+
+    /**
+     * @ORM\OneToMany(targetEntity=ProductReview::class, mappedBy="product")
+     */
+    private ArrayCollection $reviews;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Category::class, mappedBy="products")
+     */
+    private ArrayCollection $categories;
 
 
     public function getId(): ?int
@@ -389,6 +400,47 @@ class Product
         }
 
         return $this;
+    }
+
+    /**
+     * @return Collection|Product[]
+     */
+    public function getReviews(): Collection
+    {
+        return $this->reviews;
+    }
+
+    public function addReview(ProductReview $productReview): self
+    {
+        if (!$this->reviews->contains($productReview)) {
+            $this->reviews[] = $productReview;
+            $productReview->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function addCategory(Category $category): self
+    {
+        $this->categories[] = $category;
+
+        return $this;
+    }
+
+
+    public function removeCategory(Category $category): bool
+    {
+        if (!$this->categories->contains($category)) {
+            return true;
+        }
+        $this->categories->removeElement($category);
+        $category->removeProduct($this);
+        return $this->categories->removeElement($category);
+    }
+
+    public function getCategories(): Collection
+    {
+        return $this->categories;
     }
 
 }
