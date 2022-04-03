@@ -33,6 +33,11 @@ class Product
     private User $user;
 
     /**
+     * @ORM\OneToMany(targetEntity=Cart::class, mappedBy="product")
+     */
+    private $carts;
+
+    /**
      * @ORM\Column(type="string", length=75, nullable=false)
      */
     private string $title;
@@ -121,6 +126,11 @@ class Product
      * @ORM\ManyToMany(targetEntity=Category::class, mappedBy="products")
      */
     private ArrayCollection $categories;
+
+    /**
+     * @ORM\OneToMany(targetEntity=OrderItem::class, mappedBy="product")
+     */
+    private $orderItems;
 
 
     public function getId(): ?int
@@ -441,6 +451,23 @@ class Product
     public function getCategories(): Collection
     {
         return $this->categories;
+    }
+
+    /**
+     * @return Collection|Cart[]
+     */
+    public function getCarts(): Collection
+    {
+        return $this->reviews;
+    }
+
+    public function addCart(Cart $cart): self
+    {
+        if (!$this->carts->contains($cart)) {
+            $this->carts[] = $cart;
+        }
+
+        return $this;
     }
 
 }

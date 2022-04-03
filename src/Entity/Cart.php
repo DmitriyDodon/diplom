@@ -63,6 +63,11 @@ class Cart
     private ?\DateTimeInterface $updateAt = null;
 
     /**
+     * @ORM\OneToMany(targetEntity=CartItem::class, mappedBy="cart")
+     */
+    private $items;
+
+    /**
      * @ORM\Column(type="text", nullable=true)
      */
     private ?string $content = null;
@@ -230,6 +235,19 @@ class Cart
     public function setContent(?string $content): void
     {
         $this->content = $content;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getItems()
+    {
+        return $this->items;
+    }
+
+    public function addItem(CartItem $cartItem)
+    {
+        $this->items[] = $cartItem;
     }
 
 

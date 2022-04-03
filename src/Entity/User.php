@@ -93,6 +93,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $products;
 
     /**
+     * @ORM\OneToMany(targetEntity=Order::class, mappedBy="user")
+     */
+    private $orders;
+
+    /**
      * @ORM\OneToOne(targetEntity=Cart::class, inversedBy="user", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */

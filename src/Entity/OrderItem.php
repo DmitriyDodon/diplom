@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\TransactionRepository;
+use App\Repository\OrderItemRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=TransactionRepository::class)
+ * @ORM\Entity(repositoryClass=OrderItemRepository::class)
  */
-class Transaction
+class OrderItem
 {
     /**
      * @ORM\Id
@@ -18,34 +18,34 @@ class Transaction
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="products")
+     * @ORM\ManyToOne(targetEntity=Product::class, inversedBy="orderItems")
      */
-    private User $user;
+    private Product $product;
 
     /**
-     * @ORM\OneToOne(targetEntity=Order::class, inversedBy="transaction")
+     * @ORM\ManyToOne(targetEntity=Order::class, inversedBy="items")
      */
     private Order $order;
 
     /**
      * @ORM\Column(type="string", length=100, nullable=false)
      */
-    private string $code;
+    private string $sku;
+
+    /**
+     * @ORM\Column(type="float", nullable=false)
+     */
+    private float $price = 0;
+
+    /**
+     * @ORM\Column(type="float", nullable=false)
+     */
+    private float $discount = 0;
 
     /**
      * @ORM\Column(type="smallint", length=6, nullable=false)
      */
-    private int $type = 0;
-
-    /**
-     * @ORM\Column(type="smallint", length=6, nullable=false)
-     */
-    private int $mode = 0;
-
-    /**
-     * @ORM\Column(type="smallint", length=6, nullable=false)
-     */
-    private int $status = 0;
+    private int $quantity = 0;
 
     /**
      * @ORM\Column(type="datetime", nullable=false)
@@ -68,19 +68,19 @@ class Transaction
     }
 
     /**
-     * @return User
+     * @return Product
      */
-    public function getUser(): User
+    public function getProduct(): Product
     {
-        return $this->user;
+        return $this->product;
     }
 
     /**
-     * @param User $user
+     * @param Product $product
      */
-    public function setUser(User $user): void
+    public function setProduct(Product $product): void
     {
-        $this->user = $user;
+        $this->product = $product;
     }
 
     /**
@@ -102,65 +102,65 @@ class Transaction
     /**
      * @return string
      */
-    public function getCode(): string
+    public function getSku(): string
     {
-        return $this->code;
+        return $this->sku;
     }
 
     /**
-     * @param string $code
+     * @param string $sku
      */
-    public function setCode(string $code): void
+    public function setSku(string $sku): void
     {
-        $this->code = $code;
+        $this->sku = $sku;
+    }
+
+    /**
+     * @return float|int
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * @param float|int $price
+     */
+    public function setPrice($price): void
+    {
+        $this->price = $price;
+    }
+
+    /**
+     * @return float|int
+     */
+    public function getDiscount()
+    {
+        return $this->discount;
+    }
+
+    /**
+     * @param float|int $discount
+     */
+    public function setDiscount($discount): void
+    {
+        $this->discount = $discount;
     }
 
     /**
      * @return int
      */
-    public function getType(): int
+    public function getQuantity(): int
     {
-        return $this->type;
+        return $this->quantity;
     }
 
     /**
-     * @param int $type
+     * @param int $quantity
      */
-    public function setType(int $type): void
+    public function setQuantity(int $quantity): void
     {
-        $this->type = $type;
-    }
-
-    /**
-     * @return int
-     */
-    public function getMode(): int
-    {
-        return $this->mode;
-    }
-
-    /**
-     * @param int $mode
-     */
-    public function setMode(int $mode): void
-    {
-        $this->mode = $mode;
-    }
-
-    /**
-     * @return int
-     */
-    public function getStatus(): int
-    {
-        return $this->status;
-    }
-
-    /**
-     * @param int $status
-     */
-    public function setStatus(int $status): void
-    {
-        $this->status = $status;
+        $this->quantity = $quantity;
     }
 
     /**
@@ -210,6 +210,5 @@ class Transaction
     {
         $this->content = $content;
     }
-
 
 }
