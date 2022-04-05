@@ -7,11 +7,14 @@
         "php": ">=7.4",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "ext-mbstring": "*",
+        "ausi/slug-generator": "^1.1",
         "doctrine/annotations": "^1.13",
         "doctrine/doctrine-bundle": "^2.5",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.11",
         "knplabs/knp-paginator-bundle": "^5.8",
+        "parsecsv/php-parsecsv": "^1.3",
         "sensio/framework-extra-bundle": "^6.2",
         "symfony/asset": "5.4.*",
         "symfony/console": "5.4.*",
@@ -26,8 +29,7 @@
         "symfony/translation": "5.4.*",
         "symfony/validator": "5.4.*",
         "symfony/yaml": "5.4.*",
-        "twig/extra-bundle": "^3.3",
-      "ext-mbstring": "*"
+        "twig/extra-bundle": "^3.3"
     },
     "config": {
         "allow-plugins": {

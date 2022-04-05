@@ -115,17 +115,17 @@ class Product
     /**
      * @ORM\OneToMany(targetEntity=ProductMeta::class, mappedBy="product")
      */
-    private ArrayCollection $metas;
+    private $metas;
 
     /**
      * @ORM\OneToMany(targetEntity=ProductReview::class, mappedBy="product")
      */
-    private ArrayCollection $reviews;
+    private $reviews;
 
     /**
      * @ORM\ManyToMany(targetEntity=Category::class, mappedBy="products")
      */
-    private ArrayCollection $categories;
+    private $categories;
 
     /**
      * @ORM\OneToMany(targetEntity=OrderItem::class, mappedBy="product")

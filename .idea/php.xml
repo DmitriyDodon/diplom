@@ -82,6 +82,8 @@
       <path value="$PROJECT_DIR$/vendor/symfony/form" />
       <path value="$PROJECT_DIR$/vendor/symfony/validator" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-icu" />
+      <path value="$PROJECT_DIR$/vendor/ausi/slug-generator" />
+      <path value="$PROJECT_DIR$/vendor/parsecsv/php-parsecsv" />
     </include_path>
   </component>
   <component name="PhpInterpreters">

@@ -25,7 +25,7 @@ class Category
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=75, nullable=false)
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
     private string $title;
 
@@ -35,7 +35,7 @@ class Category
     private ?string $metaTitle = null;
 
     /**
-     * @ORM\Column(type="string", length=100, nullable=false, unique=true)
+     * @ORM\Column(type="string", length=255, nullable=false, unique=true)
      */
     private string $slug;
 
@@ -56,7 +56,7 @@ class Category
      *     }
      * )
      */
-    private ArrayCollection $products;
+    private $products;
 
     public function getId(): ?int
     {
