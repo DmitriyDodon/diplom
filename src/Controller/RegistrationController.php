@@ -26,7 +26,7 @@ class RegistrationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 //            creating unique code
-            $user->setUniqueKey(mb_strimwidth(str_shuffle(uniqid() . uniqid()), 0, 12));
+            $user->setUniqueKey(mb_strimwidth(str_shuffle(uniqid('', true) . uniqid('', true)), 0, 12));
 //            setting registration date and time
             $user->setRegisteredAt(new \DateTime());
             // encode the plain password

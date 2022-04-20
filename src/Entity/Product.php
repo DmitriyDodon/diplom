@@ -38,7 +38,12 @@ class Product
     private $carts;
 
     /**
-     * @ORM\Column(type="string", length=75, nullable=false)
+     * @ORM\Column(type="string", length=500, nullable=true)
+     */
+    private $imageUrl;
+
+    /**
+     * @ORM\Column(type="string", length=500, nullable=false)
      */
     private string $title;
 
@@ -132,6 +137,10 @@ class Product
      */
     private $orderItems;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ProductStock::class, mappedBy="product")
+     */
+    private $productStocks;
 
     public function getId(): ?int
     {
@@ -465,6 +474,38 @@ class Product
     {
         if (!$this->carts->contains($cart)) {
             $this->carts[] = $cart;
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImageUrl()
+    {
+        return $this->imageUrl;
+    }
+
+    /**
+     * @param mixed $imageUrl
+     */
+    public function setImageUrl($imageUrl): void
+    {
+        $this->imageUrl = $imageUrl;
+    }
+
+
+    public function getProductStock(): Collection
+    {
+        return $this->productStocks;
+    }
+
+    public function addProductStock(ProductStock $productStock): self
+    {
+        if (!$this->productStocks->contains($productStock)) {
+            $this->productStocks[] = $productStock;
+            $productStock->setProduct($this);
         }
 
         return $this;

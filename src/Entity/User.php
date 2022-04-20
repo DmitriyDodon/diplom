@@ -37,6 +37,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private string $username;
 
     /**
+     * @ORM\Column(type="boolean")
+     */
+    private bool $isAdmin = false;
+
+    /**
      * @ORM\Column(type="string", length=50, nullable=true)
      */
     private ?string $firstName = null;
@@ -99,7 +104,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\OneToOne(targetEntity=Cart::class, inversedBy="user", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private ?Cart $cart;
 
@@ -344,6 +349,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    /**
+     * @return bool
+     */
+    public function isAdmin(): bool
+    {
+        return $this->isAdmin;
+    }
+
+    /**
+     * @param bool $isAdmin
+     */
+    public function setIsAdmin(bool $isAdmin): void
+    {
+        $this->isAdmin = $isAdmin;
+    }
+
 
 
 }
