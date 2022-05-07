@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+{% block additionalCss %}
+    <link href="{{ asset("custom/css/cross-price.css") }}" rel="stylesheet">
+{% endblock %}
+{% block title %}Product list{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-8 d-flex justify-content-start">
+            <h1>Product index</h1>
+        </div>
+        <div class="col-md-4 col-12" >
+            <form method="get">
+                <div class="row col-12">
+                    <div class="col-8" style="max-height: 30px;">
+                        <select class="form-select col-8" size="2" name="categories[]" multiple>
+                            {% for category in categories %}
+                                <option value="{{ category.slug }}">{{ category.title }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-4">
+                        <button type="submit" class="btn btn-primary"><img
+                                    src="{{ asset("data/check_FILL0_wght400_GRAD0_opsz48.svg") }}"
+                                    style="max-height: 30px">
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ImageUrl</th>
+                <th>Title</th>
+                <th>Price</th>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <th>Actions</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+        {% for product in products %}
+            <tr class="show" onclick="window.location='{{ path('app_product_show', {'id': product.id}) }}';">
+                <td><img src="{{ product.imageUrl }}"></td>
+                <td>{{ product.title }}</td>
+                {% if product.discount %}
+                    <td><div class="cross">{{ product.price }}</div> <div>{{ product.price - product.discount }}</div></td>
+                {% else %}
+                    <td>{{ product.price }}</td>
+                {% endif %}
+                {% if is_granted('ROLE_ADMIN') %}
+                    <td>
+                        <a href="{{ path('app_product_edit', {'id': product.id}) }}"><img
+                                    src="{{ asset("data/1024px-OOjs_UI_icon_edit-ltr-progressive.svg.png") }}"
+                                    style="max-height: 30px"></a>
+                    </td>
+                {% endif %}
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">No products found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {% if is_granted('ROLE_ADMIN')  %}
+        <a class="btn btn-primary mb-3" href="{{ path('app_product_new') }}">Create new</a>
+    {% endif %}
+    <div class="row">
+        <div class="col-12 d-flex justify-content-center">
+            <div class="navigation">
+                {{ knp_pagination_render(products) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

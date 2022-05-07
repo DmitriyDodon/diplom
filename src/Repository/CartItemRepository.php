@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Cart;
 use App\Entity\CartItem;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
@@ -43,6 +44,15 @@ class CartItemRepository extends ServiceEntityRepository
         if ($flush) {
             $this->_em->flush();
         }
+    }
+    public function getAllItemsByCart(Cart $cart)
+    {
+        return $this->createQueryBuilder('c')
+            ->select('c,product')
+            ->leftJoin('c.product', 'product')
+            ->where('c.cart = :cart')
+            ->setParameter('cart', $cart)
+            ->getQuery();
     }
 
     // /**

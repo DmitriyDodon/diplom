@@ -23,6 +23,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->products = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->getEmail() ?? 'User' ;
+    }
+
 
     /**
      * @ORM\Id
@@ -104,7 +109,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\OneToOne(targetEntity=Cart::class, inversedBy="user", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=true)
      */
     private ?Cart $cart;
 
@@ -365,6 +369,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->isAdmin = $isAdmin;
     }
+
+    /**
+     * @return Cart|null
+     */
+    public function getCart(): ?Cart
+    {
+        return $this->cart;
+    }
+
+    /**
+     * @param Cart|null $cart
+     */
+    public function setCart(?Cart $cart): void
+    {
+        $this->cart = $cart;
+    }
+
 
 
 

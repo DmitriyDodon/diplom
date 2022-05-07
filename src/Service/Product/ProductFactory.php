@@ -35,6 +35,7 @@ class ProductFactory
         $product = new Product();
         $product->setImageUrl($imageUrl);
         $product->setSky(random_int(100, 100000));
+        random_int(0, 1) ? $product->setDiscount(random_int(($price / 100) * 10 , ($price / 100) * 50)) : $product->setDiscount(0);
         $product->setUser($user);
         $product->setTitle($title);
         $product->setSlug($slug);

@@ -47,7 +47,7 @@ class MakeAdminCommand extends Command
         $user->setUniqueKey(mb_strimwidth(str_shuffle(uniqid('', true) . uniqid('', true)), 0, 12));
         $user->setRegisteredAt(new \DateTime());
         $user->setIsAdmin(true);
-        $user->setRoles(['ADMIN_ROLE']);
+        $user->setRoles(['ROLE_ADMIN']);
         $user->setPassword(
             $this->userPasswordHasher->hashPassword(
                 $user,
@@ -59,7 +59,7 @@ class MakeAdminCommand extends Command
         $this->entityManager->flush();
 
 
-        $io->success('Admin created');
+        $io->success('Admin created' . PHP_EOL . 'Login ' . $userName . PHP_EOL . 'Password ' . $password);
 
         return Command::SUCCESS;
     }

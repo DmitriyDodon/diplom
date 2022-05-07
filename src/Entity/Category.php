@@ -17,6 +17,11 @@ class Category
         $this->products = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->getTitle();
+    }
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue

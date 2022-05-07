@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Product;
+use App\Service\FiltersDto\ProductFilter;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
@@ -43,6 +44,20 @@ class ProductRepository extends ServiceEntityRepository
         if ($flush) {
             $this->_em->flush();
         }
+    }
+
+    public function getAllProductByFilterQuery(ProductFilter $productFilter)
+    {
+        $query = $this->createQueryBuilder('p');
+
+        if (!empty($productFilter->getCategoryNames())){
+            $query->leftJoin('p.categories', 'categories')
+                ->where('categories.slug in (:filterCategories)')
+                ->setParameter('filterCategories', $productFilter->getCategoryNames());
+        }
+
+        return $query->getQuery();
+
     }
 
     // /**

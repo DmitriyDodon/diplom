@@ -25,15 +25,15 @@ class InitCommand extends Command
         $migrationCommand = $this->getApplication()->find('doctrine:migrations:migrate');
 
         $adminCommandArguments = [
-            'userName' => 'test@gamil.com',
+            'userName' => 'test@gmail.com',
             'password' => '12345678'
         ];
 
 
         $migrationCommand->run(new ArrayInput([]), $output);
-        $returnStockCommand = $stockCommand->run(new ArrayInput([]), $output);
-        $returnAdminCommand = $adminCommand->run(new ArrayInput($adminCommandArguments), $output);
-        $returnParseProductCommand = $parseProductCommand->run(new ArrayInput([]), $output);
+        $stockCommand->run(new ArrayInput([]), $output);
+        $adminCommand->run(new ArrayInput($adminCommandArguments), $output);
+        $parseProductCommand->run(new ArrayInput([]), $output);
 
         $io->success('App inited.');
 

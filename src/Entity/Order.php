@@ -500,6 +500,10 @@ class Order
         $this->updatedAt = $updatedAt;
     }
 
+    public function addOrderItem(OrderItem $orderItem)
+    {
+        $this->items[] = $orderItem;
+    }
     /**
      * @return string|null
      */
@@ -514,6 +518,11 @@ class Order
     public function setContent(?string $content): void
     {
         $this->content = $content;
+    }
+
+    public function getItems()
+    {
+        return $this->items;
     }
 
 }

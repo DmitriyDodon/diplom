@@ -1,19 +1,5 @@
 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-    {% if app.user is not empty %}
-        <li class="nav-item">
-            <a class="dropdown-item" aria-current="page" href="{{ path("app_logout") }}">{{ "Logout"|trans }}</a>
-        </li>
-    {% else %}
-        <li class="nav-item">
-            <a  class="dropdown-item" style="color: black" aria-current="page" href="{{ path('app_login') }}">{{ "Login"|trans }}</a>
-        </li>
-    {% endif %}
-    {% if not is_granted("ROLE_USER") and app.user %}
-        <li class="nav-item">
-            <a  class="dropdown-item" aria-current="page" href="#">{{ "Go to admin"|trans }}</a>
-        </li>
-        <li class="nav-item">
-            <a  class="dropdown-item" aria-current="page" href="{{ path('get_users_list') }}">{{ "Users list"|trans }}</a>
-        </li>
-    {% endif %}
+    <li class="nav-item">
+        <a class="dropdown-item" aria-current="page" href="{{ path("app_product_index") }}">{{ "Get all products"|trans }}</a>
+    </li>
 </ul>

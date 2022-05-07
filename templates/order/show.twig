@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+{% block additionalCss %}
+    <link href="{{ asset("custom/css/cross-price.css") }}" rel="stylesheet">
+{% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <p>{{ "Order date"|trans }}</p>
+            <p>{{ order.createdAt|date ('Y-m-d H:i') }}</p>
+            <p>{{ "Order shipping price"|trans }}</p>
+            <p>{{ order.shipping }}</p>
+            <p>{{ "Total price"|trans }}</p>
+            <p>{{ order.grandTotal }}</p>
+            <p>{{ "Total discount"|trans }}</p>
+            <p>{{ order.discount }}</p>
+            <p>{{ "Order status"|trans }}</p>
+            <p>{{ include("order/order-status.twig") }}</p>
+            <p>{{ "Order items"|trans }}</p>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>ImageUrl</th>
+                    <th>Title</th>
+                    <th>Price</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                {% for item in order.items %}
+                    <tr class="show">
+                        <td><img src="{{ item.product.imageUrl }}"></td>
+                        <td>{{ item.product.title }}</td>
+                        {% if item.product.discount %}
+                            <td>
+                                <div class="cross">{{ item.product.price }}</div>
+                                <div>{{ item.product.price - item.product.discount }}</div>
+                            </td>
+                        {% else %}
+                            <td>{{ item.product.price }}</td>
+                        {% endif %}
+                        <td>
+                            <a class="btn btn-primary" href="{{ path('remove_order_item', {'orderItem':item.id,'order':order.id}) }}">{{"Delete"|trans}}</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="3">No products found</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <div class="col-12 d-flex justify-content-end">
+                <a class="btn btn-primary" href="{{ path("get_order_ivoice", {'order': order.id}) }}">{{ "Get invoice"|trans }}</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

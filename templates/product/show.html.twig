@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ product.title }}{% endblock %}
+{% block additionalCss %}
+    <link href="{{ asset("custom/css/cross-price.css") }}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    <h1>{{ product.title }}</h1>
+
+    <div class="row pt-5 d-flex justify-content-center">
+        <div class="card mb-3" style="max-width: 540px;">
+            <div class="row g-0">
+                <div class="col-md-4 d-flex justify-content-center">
+                    <img src="{{ product.imageUrl }}" class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.title }}</h5>
+                        <p class="card-text">
+                            {% if product.discount %}
+                            {{ "Old price:" }}<div class="cross">{{ product.price }}</div><br>{{ "Price with discount:" }}<div><br>{{ product.price - product.discount }}</div>
+                            {% else %}
+                                {{ product.price }}
+                            {% endif %}
+                        </p>
+                        <p class="card-text"><small class="text-muted"></small></p>
+                    </div>
+                </div>
+            </div>
+            <div class="pt-3 d-flex mb-2">
+                {% if is_granted('ROLE_ADMIN') %}
+                    <div class=" row col-12">
+                        <div class="col-4 d-flex justify-content-center pt-3">
+                            <a class="btn btn-primary" href="{{ path('app_product_edit', {'id': product.id}) }}"><img src="{{ asset('data/edit-48.png') }}" style="max-height: 30px"></a>
+                        </div>
+                        <div class="col-4 d-flex justify-content-center pt-3">
+                            {{ include('product/_delete_form.html.twig') }}
+                        </div>
+                        <div class="col-4 d-flex justify-content-center pt-3">
+                            <a class="btn btn-primary" href="#"><img src="{{ asset('data/kissclipart-add-icon-cart-icon-shopping-icon-64cd6766832fc79d.png') }}" style="max-height: 30px"></a>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="col-12">
+                        <div class="col-12 d-flex justify-content-center pt-3">
+                            <a class="btn btn-primary col-12" href="{{ path('add_product_to_cart', {'product': product.id}) }}"><img src="{{ asset('data/kissclipart-add-icon-cart-icon-shopping-icon-64cd6766832fc79d.png') }}" style="max-height: 30px"></a>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+
+
+
+{% endblock %}

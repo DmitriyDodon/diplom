@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <div class="container d-flex justify-content-end">
+        <button class="btn btn-primary">{{ "Confirm order"|trans }}</button>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}

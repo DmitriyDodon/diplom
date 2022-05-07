@@ -1,0 +1,4 @@
+<form method="post" action="{{ path('app_product_delete', {'id': product.id}) }}">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ product.id) }}">
+    <button class="btn btn-primary"><img src="{{ asset('data/transparent-bin-icon-delete-icon-empty-icon-5dc7032cac0724.6832684215733235647046.png') }}" style="max-height: 30px; border: none"></button>
+</form>

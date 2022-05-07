@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Order;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
@@ -43,6 +44,25 @@ class OrderRepository extends ServiceEntityRepository
         if ($flush) {
             $this->_em->flush();
         }
+    }
+
+    public function getOrdersByUser(User $user)
+    {
+        return $this->createQueryBuilder('o')
+            ->where('o.user = :user')
+            ->setParameter('user', $user)
+            ->getQuery();
+    }
+
+    public function getOrderWithItems(int $orderId)
+    {
+        return $this->createQueryBuilder('o')
+            ->select('o,items')
+            ->leftJoin('o.items', 'items')
+            ->where('o.id = :orderId')
+            ->setParameter('orderId', $orderId)
+            ->getQuery()
+            ->getResult();
     }
 
     // /**

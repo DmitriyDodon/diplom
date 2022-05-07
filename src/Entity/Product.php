@@ -123,7 +123,7 @@ class Product
     private $metas;
 
     /**
-     * @ORM\OneToMany(targetEntity=ProductReview::class, mappedBy="product")
+     * @ORM\OneToMany(targetEntity=ProductReview::class, mappedBy="product", cascade={"persist", "remove"})
      */
     private $reviews;
 
@@ -133,12 +133,12 @@ class Product
     private $categories;
 
     /**
-     * @ORM\OneToMany(targetEntity=OrderItem::class, mappedBy="product")
+     * @ORM\OneToMany(targetEntity=OrderItem::class, mappedBy="product", cascade={"persist", "remove"})
      */
     private $orderItems;
 
     /**
-     * @ORM\OneToMany(targetEntity=ProductStock::class, mappedBy="product")
+     * @ORM\OneToMany(targetEntity=ProductStock::class, mappedBy="product", cascade={"persist", "remove"})
      */
     private $productStocks;
 

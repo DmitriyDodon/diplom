@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {% for order in orders %}
+        <a href="{{ path('show_order', {'orderId': order.id}) }}">
+        <div class="row col-12 justify-content-center pt-3">
+            <div class="card col-5">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">{{"Date of order"|trans  }}: {{ order.createdAt|date('Y-m-d h:i') }}</li>
+                    <li class="list-group-item">{{"Shipping"|trans  }}: {{ order.shipping }} USD</li>
+                    <li class="list-group-item">{{"Grand total"|trans  }}: {{ order.grandTotal }} USD</li>
+                    <li class="list-group-item">{{"Grand total"|trans  }}: {{ order.grandTotal }} USD</li>
+                    <li class="list-group-item">{{"Status"|trans  }}:  {{ include('order/order-status.twig') }}</li>
+                </ul>
+            </div>
+        </div>
+        </a>
+    {% endfor %}
+    <div class="row">
+        <div class="col-12 d-flex justify-content-center">
+            <div class="navigation">
+                {{ knp_pagination_render(orders) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
